@@ -190,11 +190,11 @@ while running:
                 draw_button(buttons[key], key.capitalize(), buttons[key].collidepoint(mouse_pos))
             if mouse_clicked:
                 if buttons["easy"].collidepoint(mouse_pos):
-                    difficulty = 8
+                    difficulty = 1
                 elif buttons["medium"].collidepoint(mouse_pos):
-                    difficulty = 10
+                    difficulty = 3
                 elif buttons["hard"].collidepoint(mouse_pos):
-                    difficulty = 12
+                    difficulty = 5
                 stage = 1
                 dialog = "Select the first prime number (p):"
                 speaker = "Conan"
@@ -252,7 +252,7 @@ while running:
                         stage = 3
                         dialog = "Message encrypted! Select the correct private key (d):"
                         speaker = "Conan"
-                        message = "SecretTreasure"
+                        message = "Akasaka Palace"
                         cipher = [pow(ord(char), e, n) for char in message]
                         d_buttons = []
                         distractors = [d + random.randint(1, 1000) for _ in range(3)]
@@ -263,10 +263,17 @@ while running:
                             d_buttons.append((rect, val))
 
         elif stage == 3:
-            draw_text_centered("Encrypted Cipher:", 180)
-            draw_text_centered(' '.join(map(str, cipher[:4])) + " ...", 220)
+            draw_stage_title(stage)
+            draw_text_centered("🕵️‍♂️ Decryption Challenge", 120, (255, 255, 0))
+            draw_text_centered("Select the correct private key (d) to decrypt the message:", 160, (255, 255, 255))
+            
+            draw_text_centered("Encrypted Cipher:", 210, (173, 216, 230))
+            cipher_preview = ' '.join(map(str, cipher[:6])) + " ..." if len(cipher) > 6 else ' '.join(map(str, cipher))
+            draw_text_centered(cipher_preview, 250, (255, 255, 255))
+            
             for rect, val in d_buttons:
                 draw_button(rect, str(val), rect.collidepoint(mouse_pos))
+
             if mouse_clicked:
                 for rect, val in d_buttons:
                     if rect.collidepoint(mouse_pos):
@@ -280,13 +287,16 @@ while running:
                                 user_decrypted = "[Invalid Decryption]"
                                 break
                         if user_d == d and user_decrypted == message:
-                            ending = "✅ You cracked the code! The treasure is safe!"
+                            ending = f"✅ You cracked the code!\nThe treasure is safe!\nDecrypted message: {user_decrypted}"
                             success_sfx.play()
                         else:
                             ending = "❌ Too late… The Kid escapes with the treasure."
                             fail_sfx.play()
                         stage = 4
                         dialog = "Case closed. Try again or exit?"
+
+
+
 
         elif stage == 4:
                 if "Success" in ending or "✅" in ending:
