@@ -89,10 +89,21 @@ typing_time = time.time()
 splash_shown = True
 splash_start_time = time.time()
 intro_lines = [
-    "Conan: Another case? What's this card?",
+    "Conan: Another case? ",
     "* Conan opens the card *",
-    "Kaito Kid: I'm stealing a treasure tonight. Stop me if you can.",
-    "Conan: This time, I'm prepared. I'll crack your RSA cipher."
+    "Kaito Kid: Yes, a challenge for you, Detective.",
+    "Conan: What is it this time?",
+    "Kaito Kid: A treasure hidden behind a cipher. Crack it, and you win.",
+    "Conan: A cipher? I love a good challenge.",
+    "Kaito Kid: It's an RSA cipher. Can you handle it?",
+    "Conan: RSA? That's child's play for me.",
+    "Kaito Kid: We'll see about that. Here's the card with the cipher.",
+    "Kaito Kid: *hands over a card with RSA parameters*",
+    "Conan: *examines the card*",
+    "Conan: Two primes, a public key, and a message. Let's get started.",
+    "Kaito Kid: Good luck, Detective. I'll be watching."
+    "Conan: You won't get away that easily, Kid. I'll crack this code.",
+    "Kaito Kid: We'll see, Detective. The treasure is at stake."
 ]
 intro_index = 0
 intro_time = time.time()
@@ -252,7 +263,7 @@ while running:
                         stage = 3
                         dialog = "Message encrypted! Select the correct private key (d):"
                         speaker = "Conan"
-                        message = "Akasaka Palace"
+                        message = "SecretTreasure"
                         cipher = [pow(ord(char), e, n) for char in message]
                         d_buttons = []
                         distractors = [d + random.randint(1, 1000) for _ in range(3)]
@@ -263,17 +274,10 @@ while running:
                             d_buttons.append((rect, val))
 
         elif stage == 3:
-            draw_stage_title(stage)
-            draw_text_centered("🕵️‍♂️ Decryption Challenge", 120, (255, 255, 0))
-            draw_text_centered("Select the correct private key (d) to decrypt the message:", 160, (255, 255, 255))
-            
-            draw_text_centered("Encrypted Cipher:", 210, (173, 216, 230))
-            cipher_preview = ' '.join(map(str, cipher[:6])) + " ..." if len(cipher) > 6 else ' '.join(map(str, cipher))
-            draw_text_centered(cipher_preview, 250, (255, 255, 255))
-            
+            draw_text_centered("Encrypted Cipher:", 180)
+            draw_text_centered(' '.join(map(str, cipher[:4])) + " ...", 220)
             for rect, val in d_buttons:
                 draw_button(rect, str(val), rect.collidepoint(mouse_pos))
-
             if mouse_clicked:
                 for rect, val in d_buttons:
                     if rect.collidepoint(mouse_pos):
@@ -287,16 +291,13 @@ while running:
                                 user_decrypted = "[Invalid Decryption]"
                                 break
                         if user_d == d and user_decrypted == message:
-                            ending = f"✅ You cracked the code!\nThe treasure is safe!\nDecrypted message: {user_decrypted}"
+                            ending = "✅ You cracked the code! The treasure is safe!"
                             success_sfx.play()
                         else:
                             ending = "❌ Too late… The Kid escapes with the treasure."
                             fail_sfx.play()
                         stage = 4
                         dialog = "Case closed. Try again or exit?"
-
-
-
 
         elif stage == 4:
                 if "Success" in ending or "✅" in ending:
