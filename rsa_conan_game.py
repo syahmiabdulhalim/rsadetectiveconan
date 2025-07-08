@@ -58,9 +58,9 @@ def create_button(center_x, y, width, height):
 bg = pygame.image.load("assets/images/bg_city_vibrant(1).jpg")
 bg = pygame.transform.scale(bg, (screen_width, screen_height))
 
-conan_img = apply_shadow(pygame.image.load("assets/images/conan.png"))
-conan_thinking = apply_shadow(pygame.image.load("assets/images/conan_thinking.png"))
-kid_img = apply_shadow(pygame.image.load("assets/images/kid.png"))
+conan_img = apply_shadow(pygame.image.load("assets/images/conan(2).png"))
+conan_thinking = apply_shadow(pygame.image.load("assets/images/conan_thinking(2).png"))
+kid_img = apply_shadow(pygame.image.load("assets/images/kid(2).png"))
 kid_worried = apply_shadow(pygame.image.load("assets/images/kid_worried.png"))
 
 pygame.mixer.music.load("assets/sounds/game_theme.mp3")
@@ -91,19 +91,8 @@ splash_start_time = time.time()
 intro_lines = [
     "Conan: Another case? ",
     "* Conan opens the card *",
-    "Kaito Kid: Yes, a challenge for you, Detective.",
-    "Conan: What is it this time?",
-    "Kaito Kid: A treasure hidden behind a cipher. Crack it, and you win.",
-    "Conan: A cipher? I love a good challenge.",
-    "Kaito Kid: It's an RSA cipher. Can you handle it?",
-    "Conan: RSA? That's child's play for me.",
-    "Kaito Kid: We'll see about that. Here's the card with the cipher.",
-    "Kaito Kid: *hands over a card with RSA parameters*",
-    "Conan: *examines the card*",
-    "Conan: Two primes, a public key, and a message. Let's get started.",
-    "Kaito Kid: Good luck, Detective. I'll be watching."
-    "Conan: You won't get away that easily, Kid. I'll crack this code.",
-    "Kaito Kid: We'll see, Detective. The treasure is at stake."
+    "Kaito Kid: I'm stealing a treasure tonight. Stop me if you can.",
+    "Conan: This time, I'm prepared. I'll crack your RSA cipher."
 ]
 intro_index = 0
 intro_time = time.time()
@@ -263,7 +252,7 @@ while running:
                         stage = 3
                         dialog = "Message encrypted! Select the correct private key (d):"
                         speaker = "Conan"
-                        message = "SecretTreasure"
+                        message = "AkasaPalace"
                         cipher = [pow(ord(char), e, n) for char in message]
                         d_buttons = []
                         distractors = [d + random.randint(1, 1000) for _ in range(3)]
